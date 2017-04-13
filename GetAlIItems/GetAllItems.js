@@ -28,11 +28,6 @@
  */
 
 (function(){
-  var parameters = PluginManager.parameters('GetAllItems');
-  var needDefaultItems = String(parameters['NeedDefaultItems'] || 'yes');
-  var needDefaultArmors = String(parameters['NeedDefaultArmors'] || 'yes');
-  var needDefaultWeapons = String(parameters['NeedDefaultWeapons'] || 'yes');
-  var defaultNum = String(parameters['DefaultNum'] || 1);
 
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
