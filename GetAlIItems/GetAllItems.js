@@ -9,7 +9,7 @@
  *
  * @help
  *   Plug-in to get all weapons, armors, items
- *   plugin command:
+ * plugin command:
  *   GetAllItems item 99      # Earn 99 items for all items
  *   GetAllItems armor 1      # Earn 99 armors for all items
  *   GetAllItems weapon 1     # Earn 99 weapons for all items
@@ -21,7 +21,7 @@
  *
  * @help
  *   全武器、防具、アイテムを取得するプラグイン
- *   プラグインコマンド:
+ * プラグインコマンド:
  *   GetAllItems item 99      # 全アイテムを99個獲得
  *   GetAllItems armor 1      # 全防具を1個獲得
  *   GetAllItems weapon 1     # 全武器を1個獲得
