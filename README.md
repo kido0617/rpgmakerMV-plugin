@@ -6,7 +6,9 @@ Plugins of RPG Maker MV.
 
 <https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/Ticker/Ticker.js>
 
+## Get All Items
 
+<https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/GetAlIItems/GetAllItems.js>
 
 ## License
 
