@@ -9,6 +9,18 @@
  * @help
  *   This is simple message plugin
  *   Usage: TickerManager.show('\\I[5]abcdefg');
+ *
+ * @param Opacity
+ * @desc Opacity of Background(0 - 255).
+ * @default 127
+ *
+ * @param DisplayDuration
+ * @desc Duration of Display[frame]
+ * @default 180
+ *
+ * @param ToggleDuration
+ * @desc Duration of Toggle[frame]
+ * @default 30
  */
 
 /*:ja
@@ -17,13 +29,26 @@
  * @help
  *   簡易メッセージを表示するプラグインです
  *   使用方法: TickerManager.show('\\I[5]あいうえお');
+ *
+ * @param Opacity
+ * @desc 背景の透明度(0 - 255)
+ * @default 127
+ *
+ * @param DisplayDuration
+ * @desc 表示時間[frame]
+ * @default 180
+ *
+ * @param ToggleDuration
+ * @desc 表示、消去にかける時間[frame]
+ * @default 30
  */
 
 (function(){
 
-  var BACKGROUND_OPACITY = 127;   //背景色
-  var DISPLAY_DURATION = 3 * 60;  //表示時間
-  var TOGGLE_DURATION = 1 * 30;   //表示、消去にかける時間
+  var parameters = PluginManager.parameters('Ticker');
+  var BACKGROUND_OPACITY = Number(parameters['Opacity'] || 127);
+  var DISPLAY_DURATION = Number(parameters['DisplayDuration'] || 3 * 60);
+  var TOGGLE_DURATION = Number(parameters['ToggleDuration'] || 30);
 
   window.TickerManager = function(){};
   TickerManager.tickers = [];
@@ -46,6 +71,12 @@
       var ticker = this.tickers.shift();
       SceneManager._scene._windowLayer.removeChild(ticker);
     }
+  };
+
+  var _terminate = Scene_Base.prototype.terminate;
+  Scene_Base.prototype.terminate = function(){
+    _terminate.call(this);
+    TickerManager.hideAll();
   };
 
   function Window_Ticker() {
