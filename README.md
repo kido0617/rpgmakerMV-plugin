@@ -10,6 +10,10 @@ Plugins of RPG Maker MV.
 
 <https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/GetAlIItems/GetAllItems.js>
 
+## Random Treasure
+
+<https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/RandomTreasure/RandomTreasure.js>
+
 ## License
 
 MIT
