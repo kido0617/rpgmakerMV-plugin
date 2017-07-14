@@ -64,19 +64,31 @@
 
 
   Window_Base.prototype.drawTextAutoWrap = function(text, x, y, width){
-    var lineHeight = this.contents.fontSize + 5;
-    var line = 0;
-    var str = "";
-    for(var i = 0; i < text.length; i++){
-      var w = this.textWidth(str + text[i]);
-      if(w > width){
-        this.drawText(str, x, y + line * lineHeight, width);
-        line++;
-        str = "";
+    var textState = { index: 0, x: x, y: y, left: x };
+    textState.text = this.convertEscapeCharacters(text);
+    textState.height = this.calcTextHeight(textState, false);
+    this.resetFontSettings();
+    while (textState.index < textState.text.length) {
+      this.processCharacter(textState);
+      if(textState.x + this.calcCharacterWidth(textState.text[textState.index]) >= width){
+        textState.text = textState.text.slice(0, textState.index) + '\n' + 
+          textState.text.slice(textState.index, textState.text.length);
       }
-      str += text[i];
     }
-    this.drawText(str, x, y + line * lineHeight, width);
   };
+
+  Window_Base.prototype.calcCharacterWidth = function(c){
+    switch (c) {
+    case '\n':
+        return 0;
+    case '\f':
+        return 0;
+    case '\x1b':
+        return 0;
+    default:
+        return this.textWidth(c);
+    }
+  };
+  
 
 })();
