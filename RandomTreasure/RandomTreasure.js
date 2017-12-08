@@ -9,13 +9,6 @@
  * @plugindesc ランダム宝箱プラグイン
  * @author kido0617
  * 
- * @param UseTinyGetInfoWnd
- * @desc TinyGetInfoWndプラグインと連携するか
- * @default false
- * 
- * @param UseGetInformation
- * @desc 入手インフォメーションプラグインと連携するか
- * @default false
  * 
  * @help
  *   ランダムにアイテムを入手できる宝箱を実装するプラグインです。
@@ -66,15 +59,13 @@
         break;
       }
     }
-    if(UseTinyGetInfoWnd){
-      var typeName = type == 0 ? 'item' : type == 1 ? 'weapon' : 'armor';
-      this.pluginCommand('TinyGetInfoWnd', [typeName, id, 'gain', 1]);
-    }else if(UseGetInformation){
-      CommonPopupManager._popEnable = CommonPopupManager.popEnable();
-      $gameParty.gainItem(item, 1);
-      CommonPopupManager._popEnable = false
+    this._params = [id, 0, 0, 1, false];
+    if(type == 0){
+      this.command126();
+    }else if(type == 1){
+      this.command127();
     }else{
-      $gameParty.gainItem(item, 1);
+      this.command128();
     }
     $gameSystem.lastRandomTreasure = item;
   }
