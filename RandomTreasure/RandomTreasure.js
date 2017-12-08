@@ -19,10 +19,6 @@
 
 (function(){
 
-  var parameters = PluginManager.parameters('RandomTreasure');
-  var UseTinyGetInfoWnd = parameters['UseTinyGetInfoWnd'] == 'true';
-  var UseGetInformation = parameters['UseGetInformation'] == 'true';
-
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
