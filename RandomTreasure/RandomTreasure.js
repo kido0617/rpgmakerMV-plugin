@@ -1,30 +1,35 @@
 /*---------------------------------------------------------------------------*
- * 2017/04/17 kido0617
+ * 2017/12/08 kido0617
  * http://kido0617.github.io/
  * License MIT
+ * Ver.1.1
  *---------------------------------------------------------------------------*/
 
 /*:
- * @plugindesc Random Treasure plugin
- * @author kido0617
- * @help
- *   Get random treasure plugin
- *
- */
-
-/*:ja
  * @plugindesc ランダム宝箱プラグイン
  * @author kido0617
+ * 
+ * @param UseTinyGetInfoWnd
+ * @desc TinyGetInfoWndプラグインと連携するか
+ * @default false
+ * 
+ * @param UseGetInformation
+ * @desc 入手インフォメーションプラグインと連携するか
+ * @default false
+ * 
  * @help
  *   ランダムにアイテムを入手できる宝箱を実装するプラグインです。
- *   プラグインコマンドで RandomTreasure reset を実行後の「ショップ処理」で選んだアイテムが
- *   ランダムで手に入るアイテム群となります。その際、価格がくじの本数となり、確率として利用できます。
- *   アイテムを手に入れるときは、プラグインコマンドで RandomTreasure get とします。
+ *   使い方は下記webページを参照
  *   http://kido0617.github.io/rpgmaker/2017-04-17-random-treasure/
  *
  */
 
 (function(){
+
+  var parameters = PluginManager.parameters('RandomTreasure');
+  var UseTinyGetInfoWnd = parameters['UseTinyGetInfoWnd'] == 'true';
+  var UseGetInformation = parameters['UseGetInformation'] == 'true';
+
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
@@ -34,7 +39,7 @@
         $gameTemp.randomTreasureReset = true;
         break;
       case 'get':
-        getRandom();
+        getRandom.call(this);
         break;
       }
     }
@@ -50,16 +55,27 @@
       sum += treasure.rate;
     });
     var rand = Math.randomInt(sum);
-    var item;
+    var item, id, type;
     sum = 0;
     for(var i = 0; i < $gameSystem.randomTreasures.length; i++){
       sum += $gameSystem.randomTreasures[i].rate;
       if(rand < sum){
-        item = getItem($gameSystem.randomTreasures[i].type, $gameSystem.randomTreasures[i].id);
+        id = $gameSystem.randomTreasures[i].id;
+        type = $gameSystem.randomTreasures[i].type;
+        item = getItem(type, id);
         break;
       }
     }
-    $gameParty.gainItem(item, 1);
+    if(UseTinyGetInfoWnd){
+      var typeName = type == 0 ? 'item' : type == 1 ? 'weapon' : 'armor';
+      this.pluginCommand('TinyGetInfoWnd', [typeName, id, 'gain', 1]);
+    }else if(UseGetInformation){
+      CommonPopupManager._popEnable = CommonPopupManager.popEnable();
+      $gameParty.gainItem(item, 1);
+      CommonPopupManager._popEnable = false
+    }else{
+      $gameParty.gainItem(item, 1);
+    }
     $gameSystem.lastRandomTreasure = item;
   }
 
