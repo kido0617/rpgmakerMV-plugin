@@ -22,4 +22,5 @@ Plugins of RPG Maker MV.
 
 ## License
 
-MIT
+完全に自由にどうぞ。
+クレジットの表記もいりません。
