@@ -1,9 +1,9 @@
 /*---------------------------------------------------------------------------*
- * 2017/12/08 kido0617
+ * 2018/04/16 kido0617
  * http://kido0617.github.io/
  * 完全に自由にどうぞ。
  * クレジットの表記もいりません。
- * Ver.1.1
+ * Ver.1.2
  *---------------------------------------------------------------------------*/
 
 /*:
@@ -16,9 +16,20 @@
  *   使い方は下記webページを参照
  *   http://kido0617.github.io/rpgmaker/2017-04-17-random-treasure/
  *
+ * @param アイテム名格納変数
+ * @desc 取得したアイテムの名前を入れる変数
+ * @default -1
+ * 
+ * @param アイテムアイコン番号格納変数
+ * @desc 取得したアイテムのアイコン番号を入れる変数
+ * @default -1
  */
 
 (function(){
+
+  var parameters = PluginManager.parameters('RandomTreasure');
+  var NAME_VAR = Number(parameters['アイテム名格納変数'] || -1);
+  var ICON_VAR = Number(parameters['アイテムアイコン番号格納変数'] || -1);
 
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
@@ -65,6 +76,8 @@
       this.command128();
     }
     $gameSystem.lastRandomTreasure = item;
+    if(NAME_VAR != -1) $gameVariables.setValue(NAME_VAR, item.name);
+    if(ICON_VAR != -1) $gameVariables.setValue(ICON_VAR, item.iconIndex);
   }
 
   function getItem(type, id){
