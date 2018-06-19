@@ -20,6 +20,10 @@ Plugins of RPG Maker MV.
 
 <https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/NiconicoLikeText/NiconicoLikeText.js>
 
+## Save BGS
+
+<https://raw.githubusercontent.com/kido0617/rpgmakerMV-plugin/master/SaveBGS/SaveBGS.js>
+
 ## License
 
 完全に自由にどうぞ。
