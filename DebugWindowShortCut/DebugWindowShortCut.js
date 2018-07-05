@@ -3,7 +3,7 @@
  * http://kido0617.github.io/
  * 完全に自由にどうぞ。
  * クレジットの表記もいりません。
- * Ver.1.0
+ * Ver.1.1
  *---------------------------------------------------------------------------*/
 
 /*:
@@ -53,8 +53,8 @@
     var rangeIndex = this.shortCutType == 'S' ? 0 : this._rangeWindow._maxSwitches;
     if(this.strNum != ''){
       var num = parseInt(this.strNum);
-      if((this.shortCutType =='S' && num > $dataSystem.switches.length) ||
-       (this.shortCutType =='V' && num > $dataSystem.variables.length)){
+      if((this.shortCutType =='S' && num > $dataSystem.switches.length - 1) ||
+       (this.shortCutType =='V' && num > $dataSystem.variables.length - 1)){
          SoundManager.playBuzzer();
          //最大超えたら最大値にしておく
          num = this.shortCutType == 'S' ?  $dataSystem.switches.length - 1 : $dataSystem.variables.length - 1;
