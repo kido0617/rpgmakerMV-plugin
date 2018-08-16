@@ -14,9 +14,9 @@
  * プラグインコマンド
  *   RotateHue arg0 arg1
  *     arg0はピクチャ番号、arg1はデフォルトからの色相の回転角度。単位は度
- *       例: Rotatehue 1 180 
+ *       例: RotateHue 1 180 
  *     引数には変数の制御文字が使えます。
- *       例: Rotatehue \V[3] \V[4]
+ *       例: RotateHue \V[3] \V[4]
 */
 
 (function(){
