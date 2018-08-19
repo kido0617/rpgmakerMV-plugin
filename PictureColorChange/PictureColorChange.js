@@ -10,7 +10,13 @@
  * @plugindesc ピクチャの色相や色合いを変えるプラグイン
  * @author @kido0617
  * @help
- * 詳細は https://kido0617.github.io/rpgmaker/2018-08-20-picture-color-change/
+ * 詳細
+ * 色相を変える
+ * https://kido0617.github.io/rpgmaker/2018-08-16-rotate-hue/
+ * 
+ * 色合いを変える
+ * https://kido0617.github.io/rpgmaker/2018-08-20-tint/
+ * 
  * プラグインコマンド
  *   RotateHue arg0 arg1
  *     arg0はピクチャ番号、arg1はデフォルトからの色相の回転角度。単位は度
@@ -154,7 +160,6 @@
         if(isHueChanged || this.__hue != 0) {
           this.bitmap.rotateHue(this.__hue);
         }
-        //console.log(this.__tint >> 16 & 0xFF, this.__tint >> 8 & 0xFF, this.hue);
       }.bind(this));
     }
   };
