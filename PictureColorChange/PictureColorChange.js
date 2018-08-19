@@ -155,7 +155,7 @@
         bitmap.blt(this.defaultBitmap, 0, 0, this.defaultBitmap.width, this.defaultBitmap.height, 0, 0);
         this.bitmap = bitmap;
         if(isTintChanged || this.__tint != 0xFFFFFF) {
-          this.bitmap.tint(this.__tint);
+          this.bitmap.setTint(this.__tint);
         }
         if(isHueChanged || this.__hue != 0) {
           this.bitmap.rotateHue(this.__hue);
@@ -164,7 +164,7 @@
     }
   };
 
-  Bitmap.prototype.tint = function(color){
+  Bitmap.prototype.setTint = function(color){
     function hex2rgb(hex, out)
     {
         out = out || [];
