@@ -1,9 +1,9 @@
 /*---------------------------------------------------------------------------*
- * 2018/04/16 kido0617
+ * 2018/09/05 kido0617
  * http://kido0617.github.io/
  * 完全に自由にどうぞ。
  * クレジットの表記もいりません。
- * Ver.1.2
+ * Ver.1.3
  *---------------------------------------------------------------------------*/
 
 /*:
@@ -23,6 +23,10 @@
  * @param アイテムアイコン番号格納変数
  * @desc 取得したアイテムのアイコン番号を入れる変数
  * @default -1
+ * 
+ * @param アイテムのくじの本数格納変数
+ * @desc 取得したアイテムのくじの本数を入れる変数(レア度に応じた演出などに使う)
+ * @default -1
  */
 
 (function(){
@@ -30,6 +34,7 @@
   var parameters = PluginManager.parameters('RandomTreasure');
   var NAME_VAR = Number(parameters['アイテム名格納変数'] || -1);
   var ICON_VAR = Number(parameters['アイテムアイコン番号格納変数'] || -1);
+  var RATE_VAR = Number(parameters['アイテムのくじの本数格納変数'] || -1);
 
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function(command, args) {
@@ -56,13 +61,14 @@
       sum += treasure.rate;
     });
     var rand = Math.randomInt(sum);
-    var item, id, type;
+    var item, id, type, rate;
     sum = 0;
     for(var i = 0; i < $gameSystem.randomTreasures.length; i++){
       sum += $gameSystem.randomTreasures[i].rate;
       if(rand < sum){
         id = $gameSystem.randomTreasures[i].id;
         type = $gameSystem.randomTreasures[i].type;
+        rate = $gameSystem.randomTreasures[i].rate;
         item = getItem(type, id);
         break;
       }
@@ -78,6 +84,7 @@
     $gameSystem.lastRandomTreasure = item;
     if(NAME_VAR != -1) $gameVariables.setValue(NAME_VAR, item.name);
     if(ICON_VAR != -1) $gameVariables.setValue(ICON_VAR, item.iconIndex);
+    if(RATE_VAR != -1) $gameVariables.setValue(RATE_VAR, rate);
   }
 
   function getItem(type, id){
