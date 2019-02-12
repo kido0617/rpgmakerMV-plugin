@@ -35,7 +35,7 @@
   var BACKGROUND_OPACITY = Number(parameters['Opacity'] || 127);
   var DISPLAY_DURATION = Number(parameters['DisplayDuration'] || 3 * 60);
   var TOGGLE_DURATION = Number(parameters['ToggleDuration'] || 30);
-  var yPosition = Number(parameters['y位置'] || 0);
+  var Y_POSITION = Number(parameters['y位置'] || 0);
 
   window.TickerManager = function(){};
   TickerManager.tickers = [];
@@ -50,7 +50,7 @@
     SceneManager._scene._windowLayer.removeChild(ticker);
     //y位置直し
     for(var i = 0; i < this.tickers.length; i++){
-      this.tickers[i].y = this.tickers[i].lineHeight() * i + yPosition;
+      this.tickers[i].y = this.tickers[i].lineHeight() * i + Y_POSITION;
     }
   };
   TickerManager.hideAll = function(){
@@ -78,7 +78,7 @@
   Window_Ticker.prototype.constructor = Window_Ticker;
 
   Window_Ticker.prototype.initialize = function(index, text) {
-    Window_Base.prototype.initialize.call(this, 0, this.lineHeight() * index + yPosition, Graphics.width, this.lineHeight());
+    Window_Base.prototype.initialize.call(this, 0, this.lineHeight() * index + Y_POSITION, Graphics.width, this.lineHeight());
     this.text = text;
     this.textX = 100;
     this.createBackground();
