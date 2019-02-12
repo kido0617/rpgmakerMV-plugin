@@ -43,6 +43,10 @@
  * @param ToggleDuration
  * @desc 表示、消去にかける時間[frame]
  * @default 30
+ * 
+ * @param y位置
+ * @desc y位置のずらし(pixel) 10と入力すると下に10ピクセル下がります
+ * @default 0
  */
 
 (function(){
@@ -51,6 +55,7 @@
   var BACKGROUND_OPACITY = Number(parameters['Opacity'] || 127);
   var DISPLAY_DURATION = Number(parameters['DisplayDuration'] || 3 * 60);
   var TOGGLE_DURATION = Number(parameters['ToggleDuration'] || 30);
+  var yPosition = Number(parameters['y位置'] || 0);
 
   window.TickerManager = function(){};
   TickerManager.tickers = [];
@@ -65,7 +70,7 @@
     SceneManager._scene._windowLayer.removeChild(ticker);
     //y位置直し
     for(var i = 0; i < this.tickers.length; i++){
-      this.tickers[i].y = this.tickers[i].lineHeight() * i;
+      this.tickers[i].y = this.tickers[i].lineHeight() * i + yPosition;
     }
   };
   TickerManager.hideAll = function(){
@@ -83,8 +88,8 @@
 
   function Window_Ticker() {
     this.frameCount = 0;
-    this.isOpening = true;
-    this.isClosing = false;
+    this.isShowing = true;
+    this.isHiding = false;
     this.isDisplaying = false;
     this.initialize.apply(this, arguments);
   }
@@ -93,7 +98,7 @@
   Window_Ticker.prototype.constructor = Window_Ticker;
 
   Window_Ticker.prototype.initialize = function(index, text) {
-    Window_Base.prototype.initialize.call(this, 0, this.lineHeight() * index, Graphics.width, this.lineHeight());
+    Window_Base.prototype.initialize.call(this, 0, this.lineHeight() * index + yPosition, Graphics.width, this.lineHeight());
     this.text = text;
     this.textX = 100;
     this.createBackground();
@@ -122,22 +127,22 @@
   Window_Ticker.prototype.update = function() {
     Window_Base.prototype.update.call(this);
     this.frameCount++;
-    if(this.isOpening){
+    if(this.isShowing){
       this._backSprite.opacity = (this.frameCount / TOGGLE_DURATION) * BACKGROUND_OPACITY;
       this.contentsOpacity = (this.frameCount / TOGGLE_DURATION) * 255;
-      this.textX = ((1 - this.frameCount * 2 / TOGGLE_DURATION) * 100).clamp(0, 100);;
+      this.textX = ((1 - this.frameCount * 2 / TOGGLE_DURATION) * 100).clamp(0, 100);
       if(this.frameCount == TOGGLE_DURATION){
-        this.isOpening = false;
+        this.isShowing = false;
         this.isDisplaying = true;
         this.frameCount = 0;
       }
     }else if(this.isDisplaying){
       if(this.frameCount == DISPLAY_DURATION){
         this.isDisplaying = false;
-        this.isClosing = true;
+        this.isHiding = true;
         this.frameCount = 0;
       }
-    }else if(this.isClosing){
+    }else if(this.isHiding){
       this._backSprite.opacity =  (1 - this.frameCount / TOGGLE_DURATION) * BACKGROUND_OPACITY;
       this.contentsOpacity = (1 - this.frameCount / TOGGLE_DURATION) * 255;;
       if(this.frameCount == TOGGLE_DURATION){
