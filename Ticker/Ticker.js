@@ -6,26 +6,6 @@
  *---------------------------------------------------------------------------*/
 
 /*:
- * @plugindesc Ticker plugin
- * @author kido0617
- * @help
- *   This is simple message plugin
- *   Usage: TickerManager.show('\\I[5]abcdefg');
- *
- * @param Opacity
- * @desc Opacity of Background(0 - 255).
- * @default 127
- *
- * @param DisplayDuration
- * @desc Duration of Display[frame]
- * @default 180
- *
- * @param ToggleDuration
- * @desc Duration of Toggle[frame]
- * @default 30
- */
-
-/*:ja
  * @plugindesc ティッカープラグイン
  * @author kido0617
  * @help
