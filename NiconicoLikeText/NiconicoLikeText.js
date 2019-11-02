@@ -1,17 +1,15 @@
 /*---------------------------------------------------------------------------*
- * 2017/11/17 kido0617
- * http://kido0617.github.io/
- * 完全に自由にどうぞ。
- * クレジットの表記もいりません。
+ * 2017/11/17 kido
+ * https://kido0617.github.io/
  * Ver.1.0
  *---------------------------------------------------------------------------*/
 
 /*:
  * @plugindesc ピクチャにniconico動画っぽいテキストを出すプラグイン
- * @author kido0617
+ * @author kido
  * @help
  *   ・参照
- *   http://kido0617.github.io/rpgmaker/2017-11-17-niconico-like-text/
+ *   https://kido0617.github.io/rpgmaker/2017-11-17-niconico-like-text/
  *
  * @param Big
  * @desc 文字サイズ'b'のときの文字サイズ
