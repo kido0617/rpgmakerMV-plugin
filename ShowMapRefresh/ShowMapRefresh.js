@@ -15,11 +15,9 @@
 
 
 (function(){
-  const _refreshIfNeeded = Game_Map.prototype.refreshIfNeeded;
-  Game_Map.prototype.refreshIfNeeded = function() {
-    if (this._needsRefresh) {
-        console.log(Graphics.frameCount + " : Map Refreshed!");
-    }
-    _refreshIfNeeded.call(this);
+  const _refresh = Game_Map.prototype.refresh;
+  Game_Map.prototype.refresh = function() {
+    console.log(Graphics.frameCount + " : Map Refreshed!");
+    _refresh.call(this);
   };
 })();
