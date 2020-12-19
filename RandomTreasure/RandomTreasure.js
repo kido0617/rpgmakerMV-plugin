@@ -1,30 +1,36 @@
 /*---------------------------------------------------------------------------*
- * 2018/09/05 kido
- * https://kido0617.github.io/
- * Ver.1.3
+ * 2020/12/19 kido0617
+ * http://kido0617.github.io/
+ * Ver.1.4 最後に取得したアイテムの取得方法を変更
+ * Ver.1.3 くじの本数格納機能追加
+ * Ver.1.2 アイテム名、アイコン番号格納変数追加
+ * Ver.1.1 入手インフォメーション系プラグインに対応
  *---------------------------------------------------------------------------*/
 
 /*:
  * @plugindesc ランダム宝箱プラグイン
- * @author kido
+ * @author kido0617
  * 
  * 
  * @help
  *   ランダムにアイテムを入手できる宝箱を実装するプラグインです。
  *   使い方は下記webページを参照
- *   https://kido0617.github.io/rpgmaker/2017-04-17-random-treasure/
+ *   http://kido0617.github.io/rpgmaker/2017-04-17-random-treasure/
  *
  * @param アイテム名格納変数
  * @desc 取得したアイテムの名前を入れる変数
- * @default -1
+ * @default 0
+ * @type variable
  * 
  * @param アイテムアイコン番号格納変数
  * @desc 取得したアイテムのアイコン番号を入れる変数
- * @default -1
+ * @default 0
+ * @type variable
  * 
  * @param アイテムのくじの本数格納変数
  * @desc 取得したアイテムのくじの本数を入れる変数(レア度に応じた演出などに使う)
- * @default -1
+ * @default 0
+ * @type variable
  */
 
 (function(){
@@ -47,6 +53,13 @@
         break;
       }
     }
+  };
+
+  Game_System.prototype.getLastRandomTreasure = function(){
+    if(this.lastRandomTreasure){
+      return getItem(this.lastRandomTreasure.type, this.lastRandomTreasure.id);
+    }
+    return null;
   };
 
   function getRandom(){
@@ -79,10 +92,10 @@
     }else{
       this.command128();
     }
-    $gameSystem.lastRandomTreasure = item;
-    if(NAME_VAR != -1) $gameVariables.setValue(NAME_VAR, item.name);
-    if(ICON_VAR != -1) $gameVariables.setValue(ICON_VAR, item.iconIndex);
-    if(RATE_VAR != -1) $gameVariables.setValue(RATE_VAR, rate);
+    $gameSystem.lastRandomTreasure = {id: id, type: type};
+    if(NAME_VAR > 0) $gameVariables.setValue(NAME_VAR, item.name);
+    if(ICON_VAR > 0) $gameVariables.setValue(ICON_VAR, item.iconIndex);
+    if(RATE_VAR > 0) $gameVariables.setValue(RATE_VAR, rate);
   }
 
   function getItem(type, id){
